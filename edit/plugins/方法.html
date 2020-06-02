@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body, html, p, h1, h2, h3, h4 {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      padding: 20px;
+    }
+    h3 {
+      margin-bottom: 15px;
+    }
+    .box {
+      margin-bottom: 30px;
+    }
+    .code {
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #f5f5f5;
+    }
+    .table {
+      width: 100%;
+    }
+    td, th {
+      padding: 10px 10px;
+      box-sizing: border-box;
+      letter-spacing: 2px;
+      line-height: 1.5;
+    }
+    .required {
+      color: red;
+    }
+    .parm {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h3>使用</h3>
+    <div class="code">
+      tools.plugins.[methods]
+    </div>
+  </div>
+  <div class="box">
+    <h3>方法</h3>
+    <div>
+      <table class="table" border="1" cellpadding="1" cellspacing="0" id="table">
+        <tr>
+          <th>方法名</th>
+          <th>说明</th>
+          <th>用法</th>
+          <th>返回值</th>
+        </tr>
+
+        <tr>
+          <td>isURL(url)</td>
+          <td>是否url地址</td>
+          <td>
+            plugins.isURL('http://.....')
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isString(val)</td>
+          <td>是否字符串</td>
+          <td>
+            plugins.isString('aaa')
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isNumber(val)</td>
+          <td>是否数字</td>
+          <td>plugins.isNumber(111)</td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isBoolean(val)</td>
+          <td>是否boolean</td>
+          <td> 
+            plugins.isBoolean(13)
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isFunction(val)</td>
+          <td>是否函数</td>
+          <td> 
+            plugins.isFunction(() => {})
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isBoolean(val)</td>
+          <td>是否boolean</td>
+          <td> 
+            plugins.isBoolean(13)
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isNull(val)</td>
+          <td>是否为null</td>
+          <td> 
+            plugins.isNull(null)
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isUndefined(val)</td>
+          <td>是否undefined</td>
+          <td> 
+            plugins.isUndefined(undefined)
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isArray(val)</td>
+          <td>是否数组</td>
+          <td> 
+            plugins.isArray([])
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isObject(val)</td>
+          <td>是否对象</td>
+          <td> 
+            plugins.isObject({})
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isBrowser</td>
+          <td>是否为浏览器环境</td>
+          <td> 
+            plugins.isBrowser({})
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>isIos</td>
+          <td>是否ios</td>
+          <td> 
+            plugins.isIos()
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>injectScript(src)</td>
+          <td>动态引入js</td>
+          <td> 
+            plugins.injectScript('http://....js')
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>elementContains(parent, child)</td>
+          <td>检查是否包含子元素</td>
+          <td> 
+            plugins.elementContains(el1, el2)
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>getStyle(el, ruleName, pseudoElt = '')</td>
+          <td>返回指定元素的生效样式</td>
+          <td> 
+            plugins.getStyle(document.querySelector('p'), 'width') || 
+            <p>
+              plugins.getStyle(document.querySelector('p'), 'width', '::after')
+            </p>
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>getType(value)</td>
+          <td>返回值或变量的类型名</td>
+          <td> 
+            plugins. 2, 3]) => 'array'
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>hasClass(el, className)</td>
+          <td>校验指定元素的类名</td>
+          <td> 
+            plugins.hasClass(el, '.class')
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>hideEle(el)</td>
+          <td>隐藏所有的指定标签</td>
+          <td> 
+            plugins.hideEle([el])
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>insertAfter(el, htmlString)</td>
+          <td>指定元素之后插入新元素</td>
+          <td> 
+            <xmp>plugins.insertAfter(document.getElementById('myId'), '<p>after</p>')</xmp>
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>insertBefore(el, htmlString)</td>
+          <td>在指定元素之前插入新元素</td>
+          <td> 
+            <xmp>plugins.insertBefore(document.getElementById('myId'), '<p>after</p>')</xmp>
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>randomHexColorCode</td>
+          <td>随机十六进制颜色</td>
+          <td> 
+            plugins.randomHexColorCode()
+          </td>
+          <td>#....</td>
+        </tr>
+
+        <tr>
+          <td>colorToRGB(val[, 透明度])</td>
+          <td>16进制颜色转RGBRGBA字符串</td>
+          <td> 
+            plugins.colorToRGB('#eeeeee', 0)  ~ plugins.colorToRGB('#eeeeee', 9)
+          </td>
+          <td>rag() || rgba()</td>
+        </tr>
+
+        <tr>
+          <td>bottomVisible</td>
+          <td>检查页面底部是否可见</td>
+          <td> 
+            plugins.bottomVisible()
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>scrollToTop(rate = 8)</td>
+          <td>平滑滚动至顶部</td>
+          <td> 
+            plugins.scrollToTop(1 - ~~) , 数值越大， 速度就越慢
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>smoothScroll(el)</td>
+          <td>滚动到指定元素区域</td>
+          <td> 
+            plugins.smoothScroll(el)
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>detectDeviceType</td>
+          <td>检测移动/PC设备</td>
+          <td> 
+            plugins.detectDeviceType()
+          </td>
+          <td>Mobile / Desktop</td>
+        </tr>
+
+        <tr>
+          <td>getScrollPosition(el = window)</td>
+          <td>返回当前的滚动位置</td>
+          <td> 
+            plugins.getScrollPosition()
+          </td>
+          <td>{x: ..., y: ...}</td>
+        </tr>
+
+        <tr>
+          <td>elementIsVisibleInViewport(el[, partiallyVisible = false])</td>
+          <td>el是否在视口范围内</td>
+          <td> 
+            plugins.elementIsVisibleInViewport(el) || plugins.elementIsVisibleInViewport(el, true)
+            <p>第二个参数检测为是否部分可见</p>
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>disabledOperate(...args)</td>
+          <td>禁止右键、选择、复制 contextmenu / selectstart / copy</td>
+          <td> 
+            <p>contextmenu / selectstart / copy</p>
+            plugins.disabledOperate('contextmenu', ...)
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>copyTextToClipboard(value)</td>
+          <td>拦截粘贴板</td>
+          <td> 
+            plugins.copyTextToClipboard()
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>compressCss(s)</td>
+          <td>压缩CSS样式代码</td>
+          <td> 
+            plugins.compressCss(style)
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>currentURL</td>
+          <td>返回当前链接url</td>
+          <td> 
+            plugins.currentURL()
+          </td>
+          <td>window.location.href</td>
+        </tr>
+
+        <tr>
+          <td>getUrlState(url)</td>
+          <td>检验URL链接是否有效</td>
+          <td> 
+            plugins.getUrlState('http://....')
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>getUrlParams(url = location.href)</td>
+          <td>获取 URL 中的参数</td>
+          <td> 
+            plugins.getUrlParams('http://....')
+          </td>
+          <td>{}}</td>
+        </tr>
+
+        <tr>
+          <td>appendQuery(url, key, value)</td>
+          <td>追加url参数</td>
+          <td> 
+            plugins.appendQuery('http://....', 'name', '11')
+          </td>
+          <td>url</td>
+        </tr>
+
+        <tr>
+          <td>download(url)</td>
+          <td>根据url地址下载</td>
+          <td> 
+            plugins.download()
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>getViewSize</td>
+          <td>获取窗体可见范围的宽与高</td>
+          <td> 
+            plugins.getViewSize()
+          </td>
+          <td>{w: ..., h: ...}</td>
+        </tr>
+        
+        <tr>
+          <td>setCahe(key, value[,{type = localStorage, timeStap = ''}])</td>
+          <td>设置浏览器缓存</td>
+          <td> 
+            plugins.setCahe('a', '1', {})
+            <p>timeStap设置缓存过期时间， 设置了过期时间后， 当读取缓存的时候，会去检测缓存是否过期， 如果过期了， 会自动清除， 返回undefined</p>
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>removeCahe(key[,type = localStorage])</td>
+          <td>删除缓存</td>
+          <td> 
+            plugins.removeCahe('a') || plugins.removeCahe('a', sessionStorage)
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>getCahe(key, type = localStorage)</td>
+          <td>读取浏览器缓存</td>
+          <td> 
+            plugins.getCahe('a') || plugins.getCahe('a', sessionStorage)
+          </td>
+          <td>value</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

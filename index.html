@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+    }
+    .box {
+      height: 3000px;
+      width: 50px;
+      transition: background-color 1000ms;
+    }
+    .test {
+      width: 50px;
+      height: 50px;
+      background: red;
+      margin-bottom: 800px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box" ></div>
+  <div class="test"></div>
+  <button id="box">滚动</button>
+  
+  <script src="./tools.js"></script>
+  <script>
+    tools.plugins.setCahe('a', {a: 1}, {timeStap: new Date().getTime() + 5 * 1000})
+    tools.funs.defer(() => {
+      console.log(tools.plugins.getCahe('a'))
+    })
+    console.log()
+    let box = document.getElementsByClassName('test')[0]
+    console.log(tools.plugins.elementIsVisibleInViewport(box, true))
+
+  </script>
+</body>
+</html>

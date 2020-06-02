@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body, html, p, h1, h2, h3, h4 {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      padding: 20px;
+    }
+    h3 {
+      margin-bottom: 15px;
+    }
+    .box {
+      margin-bottom: 30px;
+    }
+    .code {
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #f5f5f5;
+    }
+    .table {}
+    td, th {
+      padding: 10px 10px;
+      box-sizing: border-box;
+      letter-spacing: 2px;
+      line-height: 1.5;
+    }
+    .required {
+      color: red;
+    }
+    .parm {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h3>使用</h3>
+    <div class="code">
+      tools.arrays.[methods]
+    </div>
+  </div>
+  <div class="box">
+    <h3>方法</h3>
+    <div>
+      <table class="table" border="1" cellpadding="1" cellspacing="0" id="table">
+        <tr>
+          <th>方法名</th>
+          <th>说明</th>
+          <th>用法</th>
+          <th>返回值</th>
+        </tr>
+
+        <tr>
+          <td>empty(array)</td>
+          <td>数组是否为空, 为空返回false, 参数不是数组也会返回false</td>
+          <td>
+            arrays.empty([1, 2, 3])
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>all(array[, fn])</td>
+          <td>过滤不满足条件元素</td>
+          <td>
+            arrays.all([1, 2, 3], x => x > 1) || arrays.all([1, 2, 3])
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>allEqual(array)</td>
+          <td>检查数组各项相等</td>
+          <td>arrays.allEqual([1, 1, 1])</td>
+          <td>true / false</td>
+        </tr>
+        <tr>
+          <td>approximatelyEqual(v1, v2[, epsilon = 0.001])</td>
+          <td>约等于</td>
+          <td> 
+            arrays.approximatelyEqual(Math.PI / 2.0, 1.5708)
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>average(...array)</td>
+          <td>平均数</td>
+          <td> 
+            arrays.average(...[1, 2, 3]) || arrays.average(1, 2, 3)
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>averageBy(array[, fn || String])</td>
+          <td>数组对象属性平均数</td>
+          <td> 
+            arrays.averageBy([{ n: 1 }, { n: 2 }], o => o.n) || 
+            <p>arrays.averageBy([{ n: 1 }, { n: 2 }], 'n')</p>
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>castArray(val)</td>
+          <td>其它类型转数组</td>
+          <td> 
+            arrays.castArray('1', '2', ...) || arrays.castArray([1, ...])
+          </td>
+          <td>array</td>
+        </tr>
+
+        <tr>
+          <td>compact(array)</td>
+          <td>去除数组中的无效/无用值</td>
+          <td> 
+            arrays.compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]) => [ 1, 2, 3, 'a', 's', 34 ]
+          </td>
+          <td>array</td>
+        </tr>
+
+        <tr>
+          <td>countOccurrences(array, value)</td>
+          <td>检测数值出现次数</td>
+          <td> 
+            arrays.countOccurrences([1, 1, 2, 1, 2, 3], 1)
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>deepFlatten(array)</td>
+          <td>递归扁平化数组</td>
+          <td> 
+            arrays.deepFlatten([1, [2], [[3], 4], 5]) => [1, 2, 3, 4, 5]
+          </td>
+          <td>array</td>
+        </tr>
+
+        <tr>
+          <td>dropWhile(array, fn)</td>
+          <td>删除不符合条件的值</td>
+          <td> 
+            arrays.dropWhile([1, 2, 3, 4], n => n >= 3) => [3,4] || 
+            <p>arrays.dropWhile([{n: 1}, {n: 2}], v => v.n > 1)</p>
+          </td>
+          <td>array</td>
+        </tr>
+
+        <tr>
+          <td>indexOfAll(array, val[, fn])</td>
+          <td>返回数组中某值的所有索引</td>
+          <td> 
+            arrays.indexOfAll([1, 2, 3, 1, 2, 3], 1) || 
+            <p>arrays.indexOfAll({n: 1}, {n: 2}, {n: 1}, 1, v => v.n)</p>
+          </td>
+          <td>array</td>
+        </tr>
+
+        <tr>
+          <td>randomIntArrayInRange(min, max[, length = 1])</td>
+          <td>生成两数之间指定长度的随机数组</td>
+          <td> 
+            arrays.randomIntArrayInRange(12, 35, 10)
+          </td>
+          <td>array</td>
+        </tr>
+
+        <tr>
+          <td>nest(items, id = null, link = 'parent_id')</td>
+          <td>根据parent_id生成树结构</td>
+          <td> 
+            const comments = [
+              { id: 1, parent_id: null },
+              { id: 2, parent_id: 1 },
+              { id: 3, parent_id: 1 },
+              { id: 4, parent_id: 2 },
+              { id: 5, parent_id: 4 }
+            ];
+            <p>const nestedComments = nest(comments)</p>
+          </td>
+          <td>array</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

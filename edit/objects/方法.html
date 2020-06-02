@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body, html, p, h1, h2, h3, h4 {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      padding: 20px;
+    }
+    h3 {
+      margin-bottom: 15px;
+    }
+    .box {
+      margin-bottom: 30px;
+    }
+    .code {
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #f5f5f5;
+    }
+    .table {}
+    td, th {
+      padding: 10px 10px;
+      box-sizing: border-box;
+      letter-spacing: 2px;
+      line-height: 1.5;
+    }
+    .required {
+      color: red;
+    }
+    .parm {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h3>使用</h3>
+    <div class="code">
+      tools.objects.[methods]
+    </div>
+  </div>
+  <div class="box">
+    <h3>方法</h3>
+    <div>
+      <table class="table" border="1" cellpadding="1" cellspacing="0" id="table">
+        <tr>
+          <th>方法名</th>
+          <th>说明</th>
+          <th>用法</th>
+          <th>返回值</th>
+        </tr>
+
+        <tr>
+          <td>empty(val[, Boolean = false])</td>
+          <td>检查对象自身是否为空, 对象为空或者参数不是对象也会返回false</td>
+          <td>
+            objects.empty({}) || objects.empty({}, true)
+            <p>第二个参数为是否检查不可枚举的属性， 默认为false </p>
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>formatDatetime(validDate, fmt)</td>
+          <td>格式化日期参数</td>
+          <td>
+            objects.formatDatetime(任何可以new Date()的有效日期, 'yyyy-MM-dd hh:mm:ss' || 'MM月-dd日')
+          </td>
+          <td>String</td>
+        </tr>
+
+        <tr>
+          <td>getColonTimeFromDate(date)</td>
+          <td>返回当前24小时制时间的字符串</td>
+          <td>objects.getColonTimeFromDate(new Date()) => 08:38:00</td>
+          <td>String</td>
+        </tr>
+
+        <tr>
+          <td>getDaysDiffBetweenDates(date1, date2)</td>
+          <td>返回日期间的天数</td>
+          <td> 
+            objects.getDaysDiffBetweenDates(new Date('2019-01-01'), new Date('2019-10-14')) => 286
+          </td>
+          <td>Number</td>
+        </tr>
+
+        <tr>
+          <td>is(type, val)</td>
+          <td>检查值是否为特定类型</td>
+          <td> 
+            <p>objects.is(Array, [1])</p>
+            <p>objects.is(ArrayBuffer, new ArrayBuffer())</p>
+            <p>objects.is(Map, new Map())</p>
+            <p>objects.is(RegExp, /./g)</p>
+            <p>objects.is(Set, new Set())</p>
+            <p>objects.is(WeakMap, new WeakMap())</p>
+            <p>objects.is(WeakSet, new WeakSet())</p>
+            <p>objects.is(String, '')</p>
+            <p>objects.is(String, new String(''))</p>
+            <p>objects.is(Number, 1)</p>
+            <p>objects.is(Number, new Number(1))</p>
+            <p>objects.is(Boolean, true)</p>
+            <p>objects.is(Boolean, new Boolean(true))</p>
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>tomorrow</td>
+          <td>获取明天的字符串格式时间</td>
+          <td> 
+            objects.tomorrow()
+          </td>
+          <td>String</td>
+        </tr>
+
+        <tr>
+          <td>equals(val1, val2)</td>
+          <td>全等判断</td>
+          <td> 
+            objects.equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'foo' }) => true
+            <p>|| objects.equals(1, 1)</p>
+          </td>
+          <td>true / false</td>
+        </tr>
+
+        <tr>
+          <td>deepClone(val)</td>
+          <td>对象深复制</td>
+          <td> 
+            objects.deepClone({a: 1})
+          </td>
+          <td>Object</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

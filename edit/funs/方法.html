@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body, html, p, h1, h2, h3, h4 {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      padding: 20px;
+    }
+    h3 {
+      margin-bottom: 15px;
+    }
+    .box {
+      margin-bottom: 30px;
+    }
+    .code {
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #f5f5f5;
+    }
+    .table {}
+    td, th {
+      padding: 10px 10px;
+      box-sizing: border-box;
+      letter-spacing: 2px;
+      line-height: 1.5;
+    }
+    .required {
+      color: red;
+    }
+    .parm {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h3>使用</h3>
+    <div class="code">
+      tools.funs.[methods]
+    </div>
+  </div>
+  <div class="box">
+    <h3>方法</h3>
+    <div>
+      <table class="table" border="1" cellpadding="1" cellspacing="0" id="table">
+        <tr>
+          <th>方法名</th>
+          <th>说明</th>
+          <th>用法</th>
+          <th>返回值</th>
+        </tr>
+        <tr>
+          <td>defer(fn[, ...args])</td>
+          <td>推迟执行</td>
+          <td>
+            funs.defer(console.log, 'a'), console.log('b') => logs 'b' then 'a'
+          </td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>toHump(str[, s = '-'])</td>
+          <td>转驼峰</td>
+          <td>funs.toHump('a-b') || funs.toHump('a&b', '&')</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>debounce({callback = null, reset = null, seconds = 100})</td>
+          <td>防抖, 一定时间内未触发在执行</td>
+          <td> 
+            funs.debounce({
+              <div style="margin-left: 20px;">callback: () => console.log('函数执行, 你的程序逻辑'),</div>
+              <div style="margin-left: 20px;">reset: () => console.log('失败提示')</div>
+            })
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>throttle({callback = null, reset = null, seconds = 1000})</td>
+          <td>节流  一定时间段内只调用一次事件处理函数</td>
+          <td> 
+            funs.throttle({
+              <div style="margin-left: 20px;">callback: () => console.log('函数执行, 你的程序逻辑'),</div>
+              <div style="margin-left: 20px;">reset: () => console.log('失败提示')</div>
+            })
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>disconnection({callback = null, reset = null, seconds = 1000})</td>
+          <td>一定时间内触发不执行， 等时间过去在激活</td>
+          <td> 
+            funs.throttle({
+              <div style="margin-left: 20px;">callback: () => console.log('函数执行, 你的程序逻辑'),</div>
+              <div style="margin-left: 20px;">reset: () => console.log('失败提示')</div>
+            })
+          </td>
+          <td>-</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
