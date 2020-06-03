@@ -1,4 +1,5 @@
 (function() {
+
   /**
  * 数组
  */
@@ -7,6 +8,7 @@
 
   // 数组是否为空
   arrays.empty = arr => !!(Array.isArray(arr) && arr.length)
+
   // 布尔全等判断  arrays.all([1, 2, 3], x => x > 1)
   arrays.all = (arr, fn = Boolean) => arr.every(fn)
 
@@ -17,7 +19,7 @@
   arrays.approximatelyEqual = (v1, v2, epsilon = 0.001) => Math.abs(v1 - v2) < epsilon;
 
   // 平均数  arrays.average(...[1, 2, 3]) || arrays.average(1, 2, 3)
-  arrays.average = (...nums) => nums.reduce((acc, val) => acc + val, 0) / nums.length;
+  arrays.average = (...counts) => nums.division(nums.sum(...counts), counts.length);
 
   // 数组对象属性平均数  arrays.averageBy([{ n: 1 }, { n: 2 }], o => o.n) || arrays.averageBy([{ n: 1 }, { n: 2 }], 'n')
   arrays.averageBy = (arr, fn) => 
@@ -121,13 +123,7 @@
   let strs = Object.create(null)
 
   // 返回字符串的字节长度  strs.byteSize('Hello World')  
-  strs.byteSize = (str) => Array.from(str).reduce((i, v) => {
-    if(/.*[\u4e00-\u9fa5]+.*$/.test(v)) {
-      return i += v.length
-    } else {
-      return i += (new Blob([v]).size)
-    }
-  }, 0)
+  strs.byteSize = (str) => new Blob([str.replace(/[\u4E00-\u9FA5]/g,'')]).size + str.replace(/[^\u4E00-\u9FA5]/g,'').length
 
   // 删除字符串中的HTMl标签  strs.stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>') => 'lorem ipsum'
   strs.stripHTMLTags = str => str.replace(/<[^>]*>/g, '')
@@ -317,7 +313,7 @@
   nums.round = (n, decimals = 0) => Number(`${Math.round(`${n}e${decimals}`)}e-${decimals}`)
 
   // 计算数组或多个数字的总和   sum(1, 2, 3, 4) || sum(...[1, 2, 3, 4])
-  nums.sum = (...arr) => [...arr].reduce((acc, val) => acc + val, 0)
+  nums.sum = (...arr) => arr.reduce((acc, val) => nums.add(acc, val), 0)
 
   // 洗牌算法随机
   nums.shuffle = arr => {
@@ -329,6 +325,51 @@
         arr.splice(random, 1)
     }
     return result;
+  }
+
+  // 加法（精度丢失问题）
+  nums.add = (arg1, arg2) => {
+    let r1, r2, m;
+    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+    m = Math.pow(10, Math.max(r1, r2));
+    return (arg1 * m + arg2 * m) / m
+  }
+
+  // 减法函数（精度丢失问题）
+  nums.sub = (arg1, arg2) => {
+    let r1, r2, m, n;
+    try { r1 = arg1.toString().split(".")[1].length } catch (e) { r1 = 0 }
+    try { r2 = arg2.toString().split(".")[1].length } catch (e) { r2 = 0 }
+    m = Math.pow(10, Math.max(r1, r2));
+    n = (r1 >= r2) ? r1 : r2;
+    return Number(((arg1 * m - arg2 * m) / m).toFixed(n));
+  }
+
+  // 除法函数（精度丢失问题）
+  nums.division = (num1, num2) => {
+    let t1,t2,r1,r2;
+    try{
+        t1 = num1.toString().split('.')[1].length;
+    }catch(e){
+        t1 = 0;
+    }
+    try{
+        t2=num2.toString().split(".")[1].length;
+    }catch(e){
+        t2=0;
+    }
+    r1=Number(num1.toString().replace(".",""));
+    r2=Number(num2.toString().replace(".",""));
+    return (r1/r2)*Math.pow(10,t2-t1);
+  }
+
+  // 乘法函数（精度丢失问题）
+  nums.mcl = (num1, num2) => {
+    let m=0,s1=num1.toString(),s2=num2.toString();
+    try{m+=s1.split(".")[1].length}catch(e){}
+    try{m+=s2.split(".")[1].length}catch(e){}
+    return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m);
   }
 
   // 将阿拉伯数字翻译成中文的大写数字
@@ -615,14 +656,22 @@
     if(!value) {
       return url;
     }
-    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-    var separator = url.indexOf('?') !== -1 ? "&" : "?";
+    let re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    let separator = url.indexOf('?') !== -1 ? "&" : "?";
     if (url.match(re)) {
       return url.replace(re, '$1' + key + "=" + value + '$2');
     }
     else {
       return url + separator + key + "=" + value;
     }
+  }
+
+  // 修改url中的参数
+  plugins.updateParamVal = (paramName, replaceWith, url = location.href) => {
+    let oUrl = url.toString();
+    let re = eval('/('+ paramName+'=)([^&]*)/gi');
+    oUrl = oUrl.replace(re,paramName+'='+replaceWith);
+    return oUrl;
   }
 
   // 根据url地址下载
@@ -663,7 +712,7 @@
   }
 
   // 设置浏览器缓存
-  plugins.setCahe = (key, value, {type = localStorage, timeStap}) => {
+  plugins.setCache = (key, value, {type = localStorage, timeStap}) => {
     const optval = {
       timeStap,
       value
@@ -672,23 +721,114 @@
   }
 
   // 删除缓存
-  plugins.removeCahe = (key, type = localStorage) => {
+  plugins.removeCache = (key, type = localStorage) => {
     type.removeItem(key)
   }
 
   // 读取浏览器缓存
-  plugins.getCahe = (key, type = localStorage) => {
+  plugins.getCache = (key, type = localStorage) => {
     const opt = (JSON.parse(type.getItem(key)) || {})
     if (opt.timeStap) {
       if (new Date().getTime() < opt.timeStap) {
         return opt.value
       } else {
-        plugins.removeCahe({type, key})
+        plugins.removeCache({type, key})
         return undefined
       }
     } 
   }
 
+  // 存取cookie
+  plugins.cookieSet = (key, value, expire) => {
+    const d = new Date();
+    d.setDate(d.getDate() + expire);
+    document.cookie = `${key}=${value};expires=${d.toUTCString()}`
+  }
+
+  // cookie 获取
+  plugins.cookieGet = key => {
+    const cookieStr = unescape(document.cookie);
+    const arr = cookieStr.split('; ');
+    let cookieValue = '';
+    for (let i = 0; i < arr.length; i++) {
+        const temp = arr[i].split('=');
+        if (temp[0] === key) {
+            cookieValue = temp[1];
+            break
+        }
+    }
+    return cookieValue
+  }
+
+  // cookie 删除
+  plugins.cookieRemove = key => {
+    document.cookie = `${encodeURIComponent(key)}=;expires=${new Date()}`
+  }
+
+
+  // 开启全屏
+  plugins.launchFullscreen = (element) => {
+    if (element.requestFullscreen) {
+      element.requestFullscreen()
+    } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen()
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen()
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullScreen()
+    }
+  }
+  
+  // 关闭全屏
+  plugins.exitFullscreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen()
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen()
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen()
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen()
+    }
+  }
+
+  // 打开一个窗口
+  plugins.openWindow = (url, windowName, width, height) => {
+    let x = parseInt(screen.width / 2.0) - width / 2.0;
+    let y = parseInt(screen.height / 2.0) - height / 2.0;
+    let isMSIE = navigator.appName == "Microsoft Internet Explorer";
+    if (isMSIE) {
+        let p = "resizable=1,location=no,scrollbars=no,width=";
+        p = p + width;
+        p = p + ",height=";
+        p = p + height;
+        p = p + ",left=";
+        p = p + x;
+        p = p + ",top=";
+        p = p + y;
+        window.open(url, windowName, p);
+    } else {
+        let win = window.open(
+            url,
+            "ZyiisPopup",
+            "top=" +
+            y +
+            ",left=" +
+            x +
+            ",scrollbars=" +
+            scrollbars +
+            ",dialog=yes,modal=yes,width=" +
+            width +
+            ",height=" +
+            height +
+            ",resizable=no"
+        );
+        eval("try { win.resizeTo(width, height); } catch(e) { }");
+        win.focus();
+    }
+  }
+
+  
 
   /**
    * 正则

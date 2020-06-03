@@ -377,6 +377,15 @@
         </tr>
 
         <tr>
+          <td>updateParamVal(key, value[, url = location.href])</td>
+          <td>修改url中的参数</td>
+          <td> 
+            plugins.updateParamVal('a', '1')
+          </td>
+          <td>url</td>
+        </tr>
+
+        <tr>
           <td>download(url)</td>
           <td>根据url地址下载</td>
           <td> 
@@ -395,31 +404,86 @@
         </tr>
         
         <tr>
-          <td>setCahe(key, value[,{type = localStorage, timeStap = ''}])</td>
+          <td>setCache(key, value[,{type = localStorage, timeStap = ''}])</td>
           <td>设置浏览器缓存</td>
           <td> 
-            plugins.setCahe('a', '1', {})
+            plugins.setCache('a', '1', {})
             <p>timeStap设置缓存过期时间， 设置了过期时间后， 当读取缓存的时候，会去检测缓存是否过期， 如果过期了， 会自动清除， 返回undefined</p>
           </td>
           <td>-</td>
         </tr>
 
         <tr>
-          <td>removeCahe(key[,type = localStorage])</td>
+          <td>removeCache(key[,type = localStorage])</td>
           <td>删除缓存</td>
           <td> 
-            plugins.removeCahe('a') || plugins.removeCahe('a', sessionStorage)
+            plugins.removeCache('a') || plugins.removeCache('a', sessionStorage)
           </td>
           <td>-</td>
         </tr>
 
         <tr>
-          <td>getCahe(key, type = localStorage)</td>
+          <td>getCache(key, type = localStorage)</td>
           <td>读取浏览器缓存</td>
           <td> 
-            plugins.getCahe('a') || plugins.getCahe('a', sessionStorage)
+            plugins.getCache('a') || plugins.getCache('a', sessionStorage)
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>cookieSet(key, value, expire)</td>
+          <td>存取cookie</td>
+          <td> 
+            plugins.cookieSet()
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>cookieGet(key)</td>
+          <td>获取cookie</td>
+          <td> 
+            plugins.cookieGet()
+          </td>
+          <td>Cookie</td>
+        </tr>
+
+        <tr>
+          <td>cookieRemove(key)</td>
+          <td>删除cookie</td>
+          <td> 
+            plugins.cookieRemove()
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>launchFullscreen(element)</td>
+          <td>开启全屏</td>
+          <td> 
+            plugins.launchFullscreen(document.getElementById(ID))
+            <p>只能手动触发</p>
+          </td>
+          <td>-</td>
+        </tr>
+
+        <tr>
+          <td>exitFullscreen</td>
+          <td>关闭全屏</td>
+          <td> 
+            plugins.exitFullscreen()
           </td>
           <td>value</td>
+        </tr>
+
+        <tr>
+          <td>openWindow(url, windowName, width, height)</td>
+          <td>打开一个窗口(兼同IE)</td>
+          <td> 
+            tools.plugins.openWindow('http://www.baidu.com', 'aa', '700', '700')
+          </td>
+          <td>-</td>
         </tr>
       </table>
     </div>
