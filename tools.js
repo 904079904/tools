@@ -712,12 +712,11 @@
   }
 
   // 设置浏览器缓存
-  plugins.setCache = (key, value, {type = localStorage, timeStap}) => {
-    const optval = {
+  plugins.setCache = (key, value, {type = localStorage, timeStap} = {}) => {
+    type.setItem(key, JSON.stringify({
       timeStap,
       value
-    }
-    type.setItem(key, JSON.stringify(optval))
+    }))
   }
 
   // 删除缓存
@@ -732,10 +731,12 @@
       if (new Date().getTime() < opt.timeStap) {
         return opt.value
       } else {
-        plugins.removeCache({type, key})
+        plugins.removeCache(key, type)
         return undefined
       }
-    } 
+    } else {
+      return opt.value
+    }
   }
 
   // 存取cookie

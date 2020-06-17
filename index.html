@@ -30,10 +30,12 @@
   <script>
     const url = 'http://www.baidu.com?a=1&c=2'
     console.log(tools.plugins.updateParamVal('c', '1', url))
-    tools.plugins.setCache('a', {a: 1}, {timeStap: new Date().getTime() + 5 * 1000})
+    tools.plugins.setCache('a', 2, )
     tools.funs.defer(() => {
-      // console.log(tools.plugins.getCahe('a'))
+      console.log(tools.plugins.getCache('a'))
     })
+
+    console.log(111111)
 
     let box = document.getElementById('box')
     let test = document.getElementsByClassName('test')[0]
@@ -44,7 +46,8 @@
       tools.plugins.exitFullscreen()
     })
 
-    console.log(tools.strs.byteSize('😀sads'))
+
+    
   </script>
 </body>
 </html>
